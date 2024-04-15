@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import Select from "react-dropdown-select";
+import "./App.css";
+import { useState } from "react";
+import Calculator from "./Components/Calculator";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
+const options = [
+  {
+    value: 1,
+    label: "Leanne Graham",
+  },
+  {
+    value: 2,
+    label: "Ervin Howell",
+  },
+];
 
 function App() {
+  const [items, setItems] = useState([]);
+  const handleChange = (values) => {
+    setItems(values);
+    console.log(values);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        <Calculator />
+      </div>
+    </QueryClientProvider>
   );
 }
 
